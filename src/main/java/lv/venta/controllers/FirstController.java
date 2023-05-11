@@ -159,8 +159,10 @@ public class FirstController {
 	// izveidot post kontrolieri, kas saņemoto objektu redigē arī allProducts sarakstā
 	
 	@PostMapping("/update/{id}")
-	public String updateProductByIdPostFunc(@PathVariable("id") int id, Product product )//ienāk redigētais produkts
+	public String updateProductByIdPostFunc(@PathVariable("id") int id, @Valid Product product, BindingResult result)//ienāk redigētais produkts
 	{
+		if(!result.hasErrors())
+		{
 		try
 		{	
 			Product temp = crudService.updateProductByParams(id, product.getTitle(), product.getPrice(), product.getDescription(), product.getQuantity());
@@ -170,8 +172,13 @@ public class FirstController {
 		catch(Exception e){
 			return "redirect:/error";//tiks izsaukts localhost:8080/error
 		}
-	}
+		}
+		else
+		{
+			return "update-page";
+		}
 	
+	}
 	
 	@GetMapping("/error")
 	public String errorFunc() {
