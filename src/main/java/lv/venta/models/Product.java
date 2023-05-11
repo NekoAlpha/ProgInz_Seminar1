@@ -18,17 +18,17 @@ public class Product {
 	@Size(min = 3, max = 30, message = "Jābūt vismaz 3 un ne vairāk kā 30 simboliem")
 	private String title;
 	
-	@Min(value = 0)
-	@Max(value = 10000)
+	@Min(value = 0, message = "Mazākā cena var būt nulle")
+	@Max(value = 10000, message = "Lielākā cena var būt 10000")
 	private float price;
 	
 	@NotNull
-	@Pattern(regexp = "[A-ZĒŪĪĻĶŠĀŽČŅĢ]{1}[a-zēūīļķšžžčņģ\\ ]+")
-	@Size(min = 3, max = 100)
+	@Pattern(regexp = "[A-ZĒŪĪĻĶŠĀŽČŅĢ]{1}[a-zēūīļķšžžčņģ\\ ]+", message = "Pirmajam burtam jābūt lielajam")
+	@Size(min = 3, max = 100, message = "Jābūt vismaz 3 un ne vairāk kā 30 simboliem")
 	private String description;
 	
-	@Min(value = 0)
-	@Max(value = 1000)
+	@Min(value = 0, message = "Mazākais daudzums var būt nulle")
+	@Max(value = 1000, message = "Lielākais daudzums var būt 10000")
 	private int quantity;
 	
 	
