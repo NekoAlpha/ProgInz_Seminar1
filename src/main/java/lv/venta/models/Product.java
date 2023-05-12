@@ -1,6 +1,19 @@
 package lv.venta.models;
 
 import org.springframework.ui.Model;
+
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import jakarta.validation.constraints.Max;
@@ -9,39 +22,43 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
+@Table(name = "product_table")//DB pusē izveidosies tabula
+@Entity
 public class Product {
 
+	@Column(name = "Id")//DB puse būs kolonna "id" un būs kā auto increment PK
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
+	@Column(name = "Title")//DB puse būs kolonna title
 	@NotNull
-	@Pattern(regexp = "[A-ZĒŪĪĻĶŠĀŽČŅĢ]{1}[a-zāēūīļķšžžčņģ\\ ]+", message = "Pirmajam burtam jābūt lielajam")
-	@Size(min = 3, max = 30, message = "Jābūt vismaz 3 un ne vairāk kā 30 simboliem")
+	@Pattern(regexp = "[A-ZĒŪĪĻĶŠĀŽČŅ]{1}[a-zēūīļķšāžčņ\\ ]+", message = "Pirmajam burtam jābūt lielajam")
+	@Size(min = 3, max = 30, message = "Jabūt vismaz 3 un ne vairāk kā 30 simboliem")
 	private String title;
 	
-	@Min(value = 0, message = "Mazākā cena var būt nulle")
-	@Max(value = 10000, message = "Lielākā cena var būt 10000")
+	@Column(name = "Price")//DB puse bus kolonna price
+	@Min(value = 0)
+	@Max(value = 10000)
 	private float price;
 	
+	@Column(name = "Description")
 	@NotNull
-	@Pattern(regexp = "[A-ZĒŪĪĻĶŠĀŽČŅĢ]{1}[a-zāēūīļķšžžčņģ\\ ]+", message = "Pirmajam burtam jābūt lielajam")
-	@Size(min = 3, max = 100, message = "Jābūt vismaz 3 un ne vairāk kā 30 simboliem")
+	@Pattern(regexp = "[A-ZĒŪĪĻĶŠĀŽČŅ]{1}[a-zēūīļķšāžčņ\\ ]+")
+	@Size(min = 3, max = 100)
 	private String description;
 	
-	@Min(value = 0, message = "Mazākais daudzums var būt nulle")
-	@Max(value = 1000, message = "Lielākais daudzums var būt 10000")
+	@Column(name = "Quantity")
+	@Min(value = 0)
+	@Max(value = 1000)
 	private int quantity;
 	
-	
-	
-	private static int idCounter = 0;
+
 	
 	public int getId() {
 		return id;
 	}
 
-	public void setId() {
-		this.id = idCounter++;
-	}
 
 	public String getTitle() {
 		return title;
@@ -76,7 +93,6 @@ public class Product {
 	}
 
 	public Product(String title, float price, String description, int quantity) {
-		setId();
 		this.title = title;
 		this.price = price;
 		this.description = description;
