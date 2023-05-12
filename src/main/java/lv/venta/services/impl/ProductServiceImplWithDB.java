@@ -10,7 +10,7 @@ import lv.venta.repo.IProductRepo;
 import lv.venta.services.ICRUDProductService;
 import lv.venta.services.IFilteringProductService;
 
-@Service
+//@Service
 public class ProductServiceImplWithDB implements ICRUDProductService, IFilteringProductService{
 
 	@Autowired
@@ -31,14 +31,26 @@ public class ProductServiceImplWithDB implements ICRUDProductService, IFiltering
 
 	@Override
 	public Product retrieveOneProductById(int id) throws Exception {
-		// TODO Auto-generated method stub
-		return productRepo.findById(null);
+		if(productRepo.existsById(id))
+		{
+			return productRepo.findById(id).get();
+		}
+		else
+		{
+			throw new Exception("Wrong id");
+		}
 	}
 
 	@Override
-	public Product retrieveOneProductByTitle(String title) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Product> retrieveAllProductByTitle(String title) throws Exception {
+		if(title!=null) {
+			ArrayList<Product> allProductsWithTitle = productRepo.findByTitle(title);
+			return allProductsWithTitle;
+		}
+		else
+		{
+			throw new Exception("Wrong title");
+		}
 	}
 
 	@Override
@@ -63,14 +75,28 @@ public class ProductServiceImplWithDB implements ICRUDProductService, IFiltering
 		{
 			throw new Exception("Wrong id");
 		}
-		
+		 
 		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void deleteProductById(int id) throws Exception {
-		// TODO Auto-generated method stub
+		
+		if(productRepo.existsById(id))
+		{
+			productRepo.deleteById(id);
+		}
+		else
+		{
+			throw new Exception("Wrong id");
+		}
 		
 	}
 
+	
+	
+	
+	
+	
+	
 }

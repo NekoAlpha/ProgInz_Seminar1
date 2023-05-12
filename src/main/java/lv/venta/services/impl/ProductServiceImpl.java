@@ -33,15 +33,20 @@ public class ProductServiceImpl implements ICRUDProductService, IFilteringProduc
 	}
 
 	@Override
-	public Product retrieveOneProductByTitle(String title) throws Exception {
+	public ArrayList<Product> retrieveAllProductByTitle(String title) throws Exception {
+		if(title != null) {
+		ArrayList<Product> allProductsWithTitle = new ArrayList<>();
 		for (Product temp : allProducts) {
 			if (temp.getTitle().equals(title)) {
-				return temp;
 			}
 		}
-		throw new Exception("Wrong title");
+		return allProductsWithTitle;
 	}
-
+	else
+	{
+		throw new Exception("Wrong title");	
+	}
+}
 	@Override
 	public Product insertProductByParams(String title, float price, String description, int quantity) {
 		for (Product temp : allProducts) {

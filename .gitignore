@@ -2,6 +2,7 @@ bin/
 .mvn/
 mvnw
 mvnw.cmd
+applictaion.proporties
 
 HELP.md
 target/

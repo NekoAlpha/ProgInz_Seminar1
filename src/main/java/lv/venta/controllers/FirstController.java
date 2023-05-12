@@ -55,9 +55,9 @@ public class FirstController {
 		if(title!=null) {
 			Product temp;
 			try {
-				temp = crudService.retrieveOneProductByTitle(title);
-				model.addAttribute("myProduct", temp);
-				return "product-page";
+				ArrayList<Product> temp1 = crudService.retrieveAllProductByTitle(title);
+				model.addAttribute("myAllProducts", temp1);
+				return "all-products-page";
 			} catch (Exception e) {
 				return "error-page";//parādīs error-page.html lapu
 			}
@@ -73,9 +73,9 @@ public class FirstController {
 	public String productByParamFunc2(@PathVariable("title") String title, Model model) {
 		if(title!=null) {
 			try {
-				Product temp = crudService.retrieveOneProductByTitle(title);
-				model.addAttribute("myProduct", temp);
-				return "product-page";
+				ArrayList<Product> temp = crudService.retrieveAllProductByTitle(title);
+				model.addAttribute("myAllProducts", temp);
+				return "all-products-page";
 			} catch (Exception e) {
 				return "error-page";//parādīs error-page.html lapu
 			}
