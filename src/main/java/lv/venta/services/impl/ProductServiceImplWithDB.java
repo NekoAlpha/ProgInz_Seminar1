@@ -10,7 +10,7 @@ import lv.venta.repo.IProductRepo;
 import lv.venta.services.ICRUDProductService;
 import lv.venta.services.IFilteringProductService;
 
-//@Service
+@Service
 public class ProductServiceImplWithDB implements ICRUDProductService, IFilteringProductService{
 
 	@Autowired
